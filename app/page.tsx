@@ -6,7 +6,7 @@
 import { Button } from "@/components/ui/button";
 import Products from "@/components/products/products";
 import { db } from "@/server";
-import Algolia from "@/components/products/algolia";
+// import Algolia from "@/components/products/algolia";
 import ProductTags from "@/components/products/product-tags";
 
 export const revalidate = 60 * 60;
@@ -29,7 +29,7 @@ export default async function Home() {
   return (
     // <main className="text-4xl">
     <main className="">
-      <Algolia />
+      {/* <Algolia /> */}
       <ProductTags />
       {/* <h1>Homepage</h1> */}
       <Products variants={data} />
