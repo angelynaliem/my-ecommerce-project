@@ -32,15 +32,10 @@ export const emailSignIn = action(
         return { error: "Email not found" };
       }
 
-      //This code is to remove the error for 'existingUser' below, not part of main code
-      // if (!existingUser) {
-      //   return { error: "User not found" };
-      // }
-
       // If user is not verified
-      if (!existingUser.emailVerified) {
+      if (!existingUser?.emailVerified) {
         const verificationToken = await generateEmailVerificationToken(
-          existingUser.email
+          existingUser?.email ?? "Guest"
         );
         await sendVerificationEmail(
           verificationToken[0].email,
@@ -48,24 +43,6 @@ export const emailSignIn = action(
         );
         return { success: "Confirmation email sent" };
       }
-
-      // if (!existingUser?.emailVerified) {
-      //     const existingEmail = existingUser?.email
-      //     if (existingEmail) {
-      //         const verificationToken = await generateEmailVerificationToken(existingEmail);
-      //         await sendVerificationEmail(verificationToken[0].email, verificationToken[0].token)
-      //         return { success: "Confirmation email sent!" }
-      //     }
-      // }
-      //     return { error: "User email is undefined!" }
-      // }
-
-      // await signIn("credentials", {
-      //     email,
-      //     password,
-      //     redirect: false,
-
-      // })
 
       if (existingUser.twoFactorEnabled && existingUser.email) {
         if (code) {
@@ -106,7 +83,7 @@ export const emailSignIn = action(
       // console.log(email, password, code)
       return { success: "User signed in!" };
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       if (error instanceof AuthError) {
         switch (error.type) {
           case "CredentialsSignin":
