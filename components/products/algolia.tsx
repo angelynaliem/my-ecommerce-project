@@ -73,19 +73,13 @@ export default function Algolia() {
 
   return (
     <InstantSearchNext
-      // future={{
-      //   persistHierarchicalRootCount: true,
-      //   preserveSharedStateOnUnmount: true,
-      // }}
+      future={{
+        persistHierarchicalRootCount: true,
+        preserveSharedStateOnUnmount: true,
+      }}
       indexName="products"
       searchClient={searchClient}
     >
-      {/* //     <instantSearch({ */}
-      {/* // indexName: 'products',
-// searchClient: algoliasearch(process.env.NEXT_PUBLIC_ALGOLIA_ID!,
-// process.env.NEXT_PUBLIC_ALGOLIA_SEARCH!)
-//     })> */}
-
       <div className="relative">
         <SearchBox
           onFocus={() => setActive(true)}

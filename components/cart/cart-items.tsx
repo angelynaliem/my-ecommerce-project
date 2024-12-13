@@ -120,7 +120,7 @@ export default function CartItems() {
         <span className="text-md">Total: $</span>
         <AnimatePresence mode="popLayout">
           {priceInLetters.map((letter, i) => (
-            <motion.div>
+            <motion.div key={letter.id}>
               <motion.span
                 initial={{ y: 20 }}
                 animate={{ y: 0 }}
