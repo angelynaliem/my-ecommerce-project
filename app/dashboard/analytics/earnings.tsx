@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import {
@@ -40,7 +39,6 @@ export default function Earnings({
     if (filter === "month") {
       return monthly;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
   const activeTotal = useMemo(() => {
