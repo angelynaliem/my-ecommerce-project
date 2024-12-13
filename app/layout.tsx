@@ -1,8 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Roboto } from "next/font/google";
 import "./globals.css";
+import Nav from "@/components/navigation/nav";
+import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"] });
+import Link from "next/link";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { Toaster } from "sonner";
+
+// const inter = Inter({ subsets: ["latin"] });
+
+const roboto = Roboto({
+  weight: ["400", "500", "700", "900"],
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -11,12 +22,31 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: // profile //Parallel routing admin
+Readonly<{
   children: React.ReactNode;
+  // profile: React.ReactNode;
 }>) {
+  // const isAdmin = false; //Parallel routing + isAdmin && profile below
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={roboto.className}>
+        {/* <body className={cn("px-6 md:px-12 max-w-7xl mx-auto", "${inter.className}" )}> */}
+        {/* <nav>
+          <ul className="flex gap-2 justify-between px-4 bg-blue-700">
+            <li><Link href={"/"}>Home</Link></li>
+            <li><Link href={"/about"}>About</Link></li>
+          </ul>
+        </nav> */}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <div className="flex-grow px-6 md:px-12 mx-auto max-w-8xl">
+            <Nav></Nav>
+            <Toaster richColors></Toaster>
+            {children}
+            {/* {isAdmin && profile}  */}
+          </div>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
