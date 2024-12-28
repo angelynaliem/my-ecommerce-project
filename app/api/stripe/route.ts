@@ -42,12 +42,8 @@ export async function POST(req: NextRequest) {
         .where(eq(orders.paymentIntentID, event.data.object.id))
         .returning();
 
-      console.log(charge.receipt_url);
-      console.log(charge);
-
       break;
     default:
-      console.log(`${event.type}`);
   }
 
   return new Response("ok", { status: 200 });

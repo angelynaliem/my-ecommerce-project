@@ -26,7 +26,7 @@ export const EmailVerificationForm = () => {
       }
       if (data.success) {
         setSuccess(data.success);
-        console.log(data + "this is email verification data success info");
+        // console.log(data + "this is email verification data success info");
         router.push("/auth/login");
       }
     });
