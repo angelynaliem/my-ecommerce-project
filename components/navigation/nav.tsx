@@ -8,7 +8,7 @@ import CartDrawer from "../cart/cart-drawer";
 
 export default async function Nav() {
   const session = await auth();
-  console.log(session);
+  // console.log(session);
 
   return (
     <header className="py-8">

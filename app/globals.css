@@ -65,6 +65,16 @@ body {
   }
 }
 
+/* .dark-mode-svg {
+  fill: #000; /* Light mode default */
+/* }
+
+@media (prefers-color-scheme: dark) {
+  .dark-mode-svg {
+    fill: #fff; /* Dark mode */
+/* }
+} */
+
 [data-ut-element="button"][data-state="uploading"]::after {
   @apply bg-primary/50;
 }
