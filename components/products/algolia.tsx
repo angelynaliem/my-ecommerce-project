@@ -54,11 +54,11 @@
 //               __html: hit._highlightResult.title.value,
 //             }}
 //           ></p>
-//           {/* <p
+//           <p
 //             dangerouslySetInnerHTML={{
 //               __html: hit._highlightResult.productType.value,
 //             }}
-//           ></p> */}
+//           ></p>
 //           <p className="font-medium">${hit.price}</p>
 //         </div>
 //       </Link>
