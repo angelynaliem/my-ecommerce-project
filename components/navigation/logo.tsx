@@ -11,7 +11,6 @@ export default function Logo() {
       viewBox="0 0 300.000000 51.000000"
       preserveAspectRatio="xMidYMid meet"
       className="fill-secondary-foreground hover:fill-secondary-foreground/75 transition-all duration-500 ease-in-out cursor-pointer"
-      // className="dark-mode-svg"
     >
       <metadata>
         Created by potrace 1.10, written by Peter Selinger 2001-2011
