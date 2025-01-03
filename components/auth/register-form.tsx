@@ -48,7 +48,7 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-    console.log(values, "Before server action runs");
+    // console.log(values, "Before server action runs");
     execute(values);
   };
 

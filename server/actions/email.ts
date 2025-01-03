@@ -17,9 +17,10 @@ export const sendTwoFactorTokenByEmail = async (
     html: `<p>Your confirmation code: ${token}</p>`,
   });
 
-  if (error) return console.log(error);
+  if (error) return;
+  // console.log(error);
   if (data) return data;
-  console.log(data + "this is the data from email verification");
+  // console.log(data + "this is the data from email verification");
 };
 
 export const sendVerificationEmail = async (email: string, token: string) => {
@@ -31,9 +32,10 @@ export const sendVerificationEmail = async (email: string, token: string) => {
     html: `<p>Click to <a href='${confirmLink}'>Confirm your email</a></p>`,
   });
 
-  if (error) return console.log(error);
+  if (error) return;
+  // console.log(error);
   if (data) return data;
-  console.log(data + "this is the data from email verification");
+  // console.log(data + "this is the data from email verification");
 };
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {
@@ -45,6 +47,7 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
     html: `<p>Click to <a href='${confirmLink}'>Reset your passwword</a></p>`,
   });
 
-  if (error) return console.log(error);
+  if (error) return;
+  // console.log(error);
   if (data) return data;
 };
