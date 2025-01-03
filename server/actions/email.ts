@@ -11,7 +11,7 @@ export const sendTwoFactorTokenByEmail = async (
   token: string
 ) => {
   const { data, error } = await resend.emails.send({
-    from: "angelynliem@gmail.com",
+    from: "hello@harleyberie.store",
     to: email,
     subject: "My Ecommerce Project - Your Two Factor Token",
     html: `<p>Your confirmation code: ${token}</p>`,
@@ -26,7 +26,7 @@ export const sendTwoFactorTokenByEmail = async (
 export const sendVerificationEmail = async (email: string, token: string) => {
   const confirmLink = `${domain}/auth/new-verification?token=${token}`;
   const { data, error } = await resend.emails.send({
-    from: "angelynliem@gmail.com",
+    from: "hello@harleyberie.store",
     to: email,
     subject: "My Ecommerce Project - Confirmation Email",
     html: `<p>Click to <a href='${confirmLink}'>Confirm your email</a></p>`,
@@ -41,7 +41,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
 export const sendPasswordResetEmail = async (email: string, token: string) => {
   const confirmLink = `${domain}/auth/new-password?token=${token}`;
   const { data, error } = await resend.emails.send({
-    from: "admin@resend.dev",
+    from: "hello@harleyberie.store",
     to: email,
     subject: "My Ecommerce Project - Reset Password",
     html: `<p>Click to <a href='${confirmLink}'>Reset your passwword</a></p>`,
