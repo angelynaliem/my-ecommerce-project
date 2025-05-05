@@ -20,34 +20,37 @@ export async function POST(req: NextRequest) {
   try {
     event = stripe.webhooks.constructEvent(reqBuffer, sig, signingSecret);
   } catch (err: any) {
+    console.error("Webhook Error:", err.message);
     return new NextResponse(`Webhook Error: ${err.message}`, {
       status: 400,
     });
   }
 
+  console.log("Event received:", event);
+
   switch (event.type) {
     case "payment_intent.succeeded":
-      const retrieveOrder = await stripe.paymentIntents.retrieve(
-        event.data.object.id,
-        { expand: ["latest_charge"] }
-      );
-      const charge = retrieveOrder.latest_charge as Stripe.Charge;
+      const paymentIntent = event.data.object as Stripe.PaymentIntent;
 
-      const customer = await db
-        .update(orders)
-        .set({
-          status: "succeeded",
-          receiptURL: charge.receipt_url,
-        })
-        .where(eq(orders.paymentIntentID, event.data.object.id))
-        .returning();
+      try {
+        const updatedOrder = await db
+          .update(orders)
+          .set({
+            status: "succeeded",
+            receiptURL: event.data.object.charges?.data[0]?.receipt_url || "",
+          })
+          .where(eq(orders.paymentIntentID, paymentIntent.id))
+          .returning();
 
-      // console.log(charge.receipt_url);
-      // console.log(charge);
+        console.log("Order updated:", updatedOrder);
+      } catch (dbError) {
+        console.error("Database Error:", dbError);
+        return new NextResponse("Database Error", { status: 500 });
+      }
 
       break;
     default:
-    // console.log(`${event.type}`);
+      console.log(`Unhandled event type: ${event.type}`);
   }
 
   return new Response("ok", { status: 200 });

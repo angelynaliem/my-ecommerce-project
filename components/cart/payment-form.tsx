@@ -9,7 +9,6 @@ import {
 } from "@stripe/react-stripe-js";
 import { Button } from "../ui/button";
 import { useState } from "react";
-import { Currency } from "lucide-react";
 import { createPaymentIntent } from "@/server/actions/create-payment-intent";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
@@ -43,6 +42,7 @@ export default function Payment({ totalPrice }: { totalPrice: number }) {
       setIsLoading(false);
       return;
     }
+
     const { error: submitError } = await elements.submit();
     if (submitError) {
       setErrorMessage(submitError.message!);
@@ -51,7 +51,7 @@ export default function Payment({ totalPrice }: { totalPrice: number }) {
     }
 
     const { data } = await createPaymentIntent({
-      amount: totalPrice * 100,
+      amount: totalPrice * 100, // Convert to cents
       currency: "usd",
       cart: cart.map((item) => ({
         quantity: item.variant.quantity,
@@ -61,21 +61,24 @@ export default function Payment({ totalPrice }: { totalPrice: number }) {
         image: item.image,
       })),
     });
+
     if (data?.error) {
       setErrorMessage(data.error);
       setIsLoading(false);
       return;
     }
+
     if (data?.success) {
       const { error } = await stripe.confirmPayment({
         elements,
         clientSecret: data.success.clientSecretID!,
         redirect: "if_required",
         confirmParams: {
-          return_url: "http://localhost:3000/success",
+          return_url: "http://localhost:3000/success", // Update to your production URL
           receipt_email: data.success.user as string,
         },
       });
+
       if (error) {
         setErrorMessage(error.message!);
         setIsLoading(false);
@@ -92,7 +95,6 @@ export default function Payment({ totalPrice }: { totalPrice: number }) {
             quantity: item.variant.quantity,
           })),
         });
-        // console.log("save the order");
       }
     }
   };
@@ -107,6 +109,7 @@ export default function Payment({ totalPrice }: { totalPrice: number }) {
       >
         {isLoading ? "Processing..." : "Pay now"}
       </Button>
+      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
     </form>
   );
 }
